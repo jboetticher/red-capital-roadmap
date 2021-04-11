@@ -20,7 +20,7 @@ public class City implements CityInterface {
 
     // return State name
     public String state() {
-		retrun stateName;
+		return stateName;
 	}
 	
 	public float[] coords() {
