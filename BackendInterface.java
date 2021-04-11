@@ -18,7 +18,7 @@ public interface BackendInterface {
     public boolean addBackCity(String abbr);
 
     // Returns a list of the names of cities that have been removed
-    public String[] removedCities(String abbr);
+    public String[] removedCities();
 
     // --gets the information for a specific capital
     public String getCityInfo(String abbr);
