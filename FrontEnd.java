@@ -3,7 +3,6 @@ import java.util.zip.DataFormatException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-
 public class FrontEnd {
 
     static final char QUIT_COMMAND = 'q';
@@ -30,14 +29,13 @@ public class FrontEnd {
         homeMenu();
 
         // get userButton input from user
-        userCmd = scnr.next().charAt(0);
+        userCmd = promptInput(scnr);
 
         // User functions behind Menu ("q" to quit menu)
         while (userCmd != QUIT_COMMAND) {
 
             switch (userCmd) {
             case PATH_MENU_COMMAND:
-                printHeader("Path Menu");
                 userCmd = pathMenu(scnr, backend);
                 continue;
             case INFO_COMMAND:
@@ -57,7 +55,7 @@ public class FrontEnd {
                 userCmd = promptInput(scnr);
                 continue;
             }
-        }        
+        }
 
         // quitting
         scnr.close();
@@ -80,6 +78,7 @@ public class FrontEnd {
      * Displays the rank screen.
      */
     private static char pathMenu(Scanner scan, BackendInterface backend) {
+        printHeader("Path Menu");
         println("Press \"" + REMOVE_CITY_COMMAND + "\" to remove a specific state capital from the path generation.");
         println("Press \"" + ADD_CITY_COMMAND + "\" to add back a specific state capital to the path generation.");
         println("Press \"" + HOME_MENU_COMMAND + "\" to return to the Home Menu");
@@ -92,13 +91,41 @@ public class FrontEnd {
         // command parsing
         switch (localCmd) {
         case REMOVE_CITY_COMMAND:
-            printHeader("WIP");
+            scan.nextLine();
+            printHeader("Capital Removal");
+
+            // ask for input
+            String removeInitials = promptLineInput("Enter the state initials of the capital that you wish to remove: ",
+                    scan);
+
+            // successful or not successful
+            boolean removeSuccessful = backend.removeCity(removeInitials);
+            if (removeSuccessful)
+                println("Removal successful.");
+            else
+                println("Removal unsuccessful. Try again with different input.");
             return pathMenu(scan, backend);
         case ADD_CITY_COMMAND:
-            printHeader("WIP");
-            // printRanking.forEach(
-            // a -> System.out.println("Rank: " + a.getRank() + " -- restaurant Name: " +
-            // a.getRestaurantName()));
+            scan.nextLine();
+            String[] removed = backend.removedStateAbbreviations();
+
+            // display
+            printHeader("Add Back Capitals");
+            println("Here is a list of each removed state whose capital is removed:");
+            for (String str : removed)
+                print(str + " ");
+            println("");
+
+            // ask for input
+            String addInitials = promptLineInput("Enter the state initials of the capital that you wish to add back: ",
+                    scan);
+
+            // successful or not successful
+            boolean addSuccessful = backend.addBackCity(addInitials);
+            if (addSuccessful)
+                println("Addition successful.");
+            else
+                println("Addition unsuccessful. Try again with different input.");
             return pathMenu(scan, backend);
         default:
             return localCmd;
@@ -152,12 +179,25 @@ public class FrontEnd {
 
     /**
      * Prompts input from the user.
+     * 
      * @param scnr the scanner to retrieve input from
      * @return the input from the user.
      */
-    public static char promptInput(Scanner scnr){
+    public static char promptInput(Scanner scnr) {
         print("Enter option: ");
         return scnr.next().charAt(0);
+    }
+
+    /**
+     * Prompts multi-character input form the user.
+     * 
+     * @param prompt the prompt to show the user
+     * @param scnr   the scanner to retrieve input from
+     * @return the input from the user
+     */
+    public static String promptLineInput(String prompt, Scanner scnr) {
+        print(prompt);
+        return scnr.nextLine();
     }
 
     // #endregion
