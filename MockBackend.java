@@ -27,8 +27,8 @@ public class MockBackend implements BackendInterface {
     }
 
     @Override
-    public String[] removedCities() {
-        return new String[] { "Sacramento", "Madison", "Springfield" };
+    public String[] removedStateAbbreviations() {
+        return new String[] { "CA", "WI", "IL" };
     }
 
     @Override

@@ -17,8 +17,8 @@ public interface BackendInterface {
     // returns true if it was successful, false if it wasn’t
     public boolean addBackCity(String abbr);
 
-    // Returns a list of the names of cities that have been removed
-    public String[] removedCities();
+    // Returns a list of the abbrevations of states of cities that have been removed
+    public String[] removedStateAbbreviations();
 
     // --gets the information for a specific capital
     public String getCityInfo(String abbr);
