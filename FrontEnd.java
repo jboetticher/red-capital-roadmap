@@ -1,5 +1,8 @@
 import java.util.Scanner;
 import java.util.zip.DataFormatException;
+
+import jdk.nashorn.internal.runtime.arrays.IntOrLongElements;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -39,11 +42,19 @@ public class FrontEnd {
                 userCmd = pathMenu(scnr, backend);
                 continue;
             case INFO_COMMAND:
-                printHeader("WIP");
+                printHeader("Display State & Capital Info");
+                scnr.nextLine();
+                String infoInput = promptLineInput(
+                        "Enter the initial of the state whose capital you wish to learn about: ", scnr);
+                println(backend.getCityInfo(infoInput));
+                homeMenu();
                 userCmd = promptInput(scnr);
                 continue;
             case LIST_STATES_COMMAND:
-                printHeader("WIP");
+                printHeader("Displaying All States");
+                for (CityInterface city : backend.getAllCities())
+                    println(city.state() + " - " + city.name());
+                homeMenu();
                 userCmd = promptInput(scnr);
                 continue;
             case QUIT_COMMAND:
