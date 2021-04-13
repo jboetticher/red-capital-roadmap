@@ -1,3 +1,12 @@
+//--== CS400 File Header Information ==--
+//Name: Jeremy Boetticher
+//Email: boetticher@wisc.edu
+//Team: Red
+//Group: KF
+//TA: Keren Chen
+//Lecturer: Gary Dahl
+//Notes to Grader: ---
+
 import java.util.Scanner;
 import java.util.zip.DataFormatException;
 import java.io.FileNotFoundException;
@@ -15,7 +24,13 @@ public class FrontEnd {
     static final char ADD_CITY_COMMAND = 'a';
 
     public static void main(String[] args) throws FileNotFoundException, IOException, DataFormatException {
+        run();
+    }
 
+    /**
+     * Runs the program.
+     */
+    public static void run() {
         // mock backend that doesn't work
         BackendInterface backend = new MockBackend();
 

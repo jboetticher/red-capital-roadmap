@@ -1,3 +1,13 @@
+//--== CS400 File Header Information ==--
+//Name: Jeremy Boetticher
+//Email: boetticher@wisc.edu
+//Team: Red
+//Group: KF
+//TA: Keren Chen
+//Lecturer: Gary Dahl
+//Notes to Grader: ---
+
+import java.util.LinkedList;
 import java.util.List;
 
 public class MockBackend implements BackendInterface {
@@ -38,7 +48,11 @@ public class MockBackend implements BackendInterface {
 
     @Override
     public List<CityInterface> getAllCities() {
-        return null;
+        List<CityInterface> interfaces = new LinkedList<CityInterface>();
+        interfaces.add(new City("California", "CA", 12, 2));
+        interfaces.add(new City("Wisconsin", "WI", 6, 8));
+        interfaces.add(new City("Illinois", "IL", 17, 0));     
+        return interfaces;       
     }
 
     @Override
