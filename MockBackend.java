@@ -7,6 +7,7 @@
 //Lecturer: Gary Dahl
 //Notes to Grader: ---
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class MockBackend implements BackendInterface {
 
     @Override
     public String[] removedStateAbbreviations() {
-        return new String[] { "CA", "WI", "IL" };
+        return new String[] { "CA", "WI", "IL", "HI" };
     }
 
     @Override
@@ -49,9 +50,10 @@ public class MockBackend implements BackendInterface {
     @Override
     public List<CityInterface> getAllCities() {
         List<CityInterface> interfaces = new LinkedList<CityInterface>();
-        interfaces.add(new City("California", "CA", 12, 2));
-        interfaces.add(new City("Wisconsin", "WI", 6, 8));
-        interfaces.add(new City("Illinois", "IL", 17, 0));     
+        interfaces.add(new City("California", "CA", -12, 2, Arrays.asList(new String[] {"Wisconsin"})));
+        interfaces.add(new City("Wisconsin", "WI", 6, 8, Arrays.asList(new String[] {"California", "Illinois"})));
+        interfaces.add(new City("Illinois", "IL", 17, 0, Arrays.asList(new String[] {"Wisconsin"})));
+        interfaces.add(new City("Hawaii", "HI", -20, -20, new LinkedList<String>()));
         return interfaces;       
     }
 
