@@ -13,4 +13,7 @@ public interface CityInterface {
     // STRING, THEN THE CS400Graph's HASHTABLE WILL RETURN THE CORRECT VALUES
     @Override
     public int hashCode();
+    
+    @Override
+    public String toString();
 }
