@@ -38,4 +38,9 @@ public class City implements CityInterface {
     public int hashCode() {
         return capitalName.hashCode();
     }
+    
+    @Override
+    public String toString() {
+      return capitalName;
+    }
 }
