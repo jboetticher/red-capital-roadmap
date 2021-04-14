@@ -8,12 +8,7 @@
 //Notes to Grader: ---
 
 import java.util.Scanner;
-import java.util.zip.DataFormatException;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.stream.Stream;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class FrontEnd {
 
@@ -25,11 +20,11 @@ public class FrontEnd {
     static final char SHORTEST_PATH_COMMAND = 's';
     static final char REMOVE_CITY_COMMAND = 'r';
     static final char ADD_CITY_COMMAND = 'a';
-
+/*
     public static void main(String[] args) throws FileNotFoundException, IOException, DataFormatException {
         run();
     }
-
+*/
     /**
      * Runs the program.
      */

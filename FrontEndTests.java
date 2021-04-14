@@ -11,21 +11,16 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.io.StringReader;
-import java.util.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
 
 public class FrontEndTests {
 
 	@AfterEach
 	public void EndFrontEnd() {
 		InputStream simulatedInput = System.in;
-		ByteArrayInputStream in = new ByteArrayInputStream("q".getBytes());
+		ByteArrayInputStream in = new ByteArrayInputStream("q\r".getBytes());
 		System.setIn(in);
 
 		// reset
@@ -33,13 +28,13 @@ public class FrontEndTests {
 	}
 
 	@Test
-	public static void AssertGetCityInfo() {
+	public void AssertGetCityInfo() {
 		// starts the front end
 		FrontEnd.run();
 
 		// simulated input
 		InputStream simulatedInput = System.in;
-		ByteArrayInputStream in = new ByteArrayInputStream("i".getBytes());
+		ByteArrayInputStream in = new ByteArrayInputStream("i\r".getBytes());
 		System.setIn(in);
 
 		// stream output reader
@@ -48,7 +43,7 @@ public class FrontEndTests {
 		String appOutput = outputStream.toString();
 
 		// second step input
-		ByteArrayInputStream inAfter = new ByteArrayInputStream("NC".getBytes());
+		ByteArrayInputStream inAfter = new ByteArrayInputStream("NC\r".getBytes());
 		System.setIn(inAfter);
 
 		// check for test city output
@@ -59,13 +54,13 @@ public class FrontEndTests {
 	}
 
 	@Test
-	public static void AssertQuit() {
+	public void AssertQuit() {
 		// starts the front end
 		FrontEnd.run();
 
 		// simulated input
 		InputStream simulatedInput = System.in;
-		ByteArrayInputStream in = new ByteArrayInputStream("i".getBytes());
+		ByteArrayInputStream in = new ByteArrayInputStream("q\r".getBytes());
 
 		// stream output reader
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -76,20 +71,20 @@ public class FrontEndTests {
 		System.setIn(in);
 
 		// check for quit output
-		assertTrue(appOutput.compareTo("STATE CAPITAL ROUTE SYSTEM HAS QUIT") == 0);
+		assertTrue(appOutput.contains("STATE CAPITAL ROUTE SYSTEM HAS QUIT"));
 
 		// reset
 		System.setIn(simulatedInput);
 	}
 
 	@Test
-	public static void AssertWrongOutput() {
+	public void AssertWrongOutput() {
 		// starts the front end
 		FrontEnd.run();
 
 		// simulated input
 		InputStream simulatedInput = System.in;
-		ByteArrayInputStream in = new ByteArrayInputStream("dkiwef".getBytes());
+		ByteArrayInputStream in = new ByteArrayInputStream("dkiwef\r".getBytes());
 
 		// stream output reader
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
