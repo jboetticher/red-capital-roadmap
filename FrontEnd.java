@@ -9,6 +9,7 @@
 
 import java.util.Scanner;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class FrontEnd {
 
@@ -246,7 +247,11 @@ public class FrontEnd {
      */
     public static char promptInput(Scanner scnr) {
         print("Enter option: ");
-        return scnr.next().charAt(0);
+        try {
+            return scnr.next().charAt(0);
+        } catch (NoSuchElementException e) {
+            return 'h';
+        }
     }
 
     /**
