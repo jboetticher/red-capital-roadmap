@@ -11,6 +11,9 @@ import java.util.Scanner;
 import java.util.zip.DataFormatException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.stream.Stream;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 public class FrontEnd {
 
@@ -102,6 +105,7 @@ public class FrontEnd {
      */
     private static char pathMenu(Scanner scan, BackendInterface backend) {
         printHeader("Path Menu");
+        println("Press \"" + SHORTEST_PATH_COMMAND + "\" to find the shortest path between two capitals.");
         println("Press \"" + REMOVE_CITY_COMMAND + "\" to remove a specific state capital from the path generation.");
         println("Press \"" + ADD_CITY_COMMAND + "\" to add back a specific state capital to the path generation.");
         println("Press \"" + HOME_MENU_COMMAND + "\" to return to the Home Menu");
@@ -113,6 +117,45 @@ public class FrontEnd {
 
         // command parsing
         switch (localCmd) {
+        case SHORTEST_PATH_COMMAND:
+            List<CityInterface> allCities = backend.getAllCities();
+            CityInterface startCity, endCity;
+
+            // ask for input & validate
+            try {
+                scan.nextLine();
+                String start = promptLineInput("Enter the state initials of your starting capital: ", scan);
+                startCity = allCities.stream().filter(x -> x.state().compareTo(start) == 0).findFirst().get();
+                //scan.nextLine();
+                String end = promptLineInput("Enter the state initials of your ending capital: ", scan);
+                endCity = allCities.stream().filter(x -> x.state().compareTo(end) == 0).findFirst().get();
+            } catch (Exception e) {
+                println("City not found. Try again with different input.");
+                return pathMenu(scan, backend);
+            }
+
+            // gets cost and path list
+            int cost;
+            List<CityInterface> path;
+            try {
+                cost = backend.getPathCost(startCity, endCity);
+                path = backend.shortestPath(startCity, endCity);
+            } catch (Exception e) {
+                println("No path available. Try a different start or end.");
+                return pathMenu(scan, backend);
+            }
+
+            // print out path
+            println(startCity.name() + ", " + startCity.state() + " to " + endCity.name() + ", " + endCity.state()
+                    + " shortest length: " + cost);
+            for(int i = 0; i < path.size(); i++) {
+                if(startCity == path.get(i)) print("    ");
+                println(path.get(i).name() + ", " + path.get(i).state());
+                if(endCity != path.get(i)) print(" -> ");
+            }
+            println(""); // skip a line
+
+            return pathMenu(scan, backend);
         case REMOVE_CITY_COMMAND:
             scan.nextLine();
             printHeader("Capital Removal");

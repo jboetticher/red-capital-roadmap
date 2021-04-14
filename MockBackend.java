@@ -15,14 +15,18 @@ public class MockBackend implements BackendInterface {
 
     @Override
     public List<CityInterface> shortestPath(CityInterface start, CityInterface end) {
-        return null;
+        List<CityInterface> interfaces = new LinkedList<CityInterface>();
+        interfaces.add(start);
+        interfaces.add(new City("IL", "Springfield", 17, 0, Arrays.asList(new String[] {"Wisconsin"})));
+        interfaces.add(end);
+        return interfaces;
     }
 
     @Override
     public int getPathCost(CityInterface start, CityInterface end) {
-        if(start.name().compareTo("California") == 0) {
+        if(start.state().compareTo("CA") == 0) {
             return 100;
-        } else if(start.name().compareTo("Louisiana") == 0) {
+        } else if(start.state().compareTo("WI") == 0) {
             return 500;
         } else return 0;
     }
@@ -50,10 +54,10 @@ public class MockBackend implements BackendInterface {
     @Override
     public List<CityInterface> getAllCities() {
         List<CityInterface> interfaces = new LinkedList<CityInterface>();
-        interfaces.add(new City("California", "CA", -12, 2, Arrays.asList(new String[] {"Wisconsin"})));
-        interfaces.add(new City("Wisconsin", "WI", 6, 8, Arrays.asList(new String[] {"California", "Illinois"})));
-        interfaces.add(new City("Illinois", "IL", 17, 0, Arrays.asList(new String[] {"Wisconsin"})));
-        interfaces.add(new City("Hawaii", "HI", -20, -20, new LinkedList<String>()));
+        interfaces.add(new City("CA", "Sacramento", -12, 2, Arrays.asList(new String[] {"Wisconsin"})));
+        interfaces.add(new City("WI", "Madison", 6, 8, Arrays.asList(new String[] {"California", "Illinois"})));
+        interfaces.add(new City("IL", "Springfield", 17, 0, Arrays.asList(new String[] {"Wisconsin"})));
+        interfaces.add(new City("HI", "Honololu", -20, -20, new LinkedList<String>()));
         return interfaces;       
     }
 
